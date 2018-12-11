@@ -17,13 +17,36 @@ let imageData = (function getImageDataArr(imageData){
 })(data);
 
 // console.log(imageData)
+var ImageFigure = React.createClass({
+  render: function() {
+    return (
+      <figure>
+        <img src={this.props.data.imageURL} alt={this.props.data.title}/>
+        <figcaption>
+            <h2>
+              {this.props.data.title}
+            </h2>
+        </figcaption>
+      </figure>
+    )
+  }
+})
 
 class AppComponent extends React.Component {
   render() {
+    let 
+        imageFigureArr = [];
+
+    imageData.forEach(function(value,key){
+        imageFigureArr.push(<ImageFigure key={key} data={value}></ImageFigure>)
+      });
+
     return (
       <section className="stage">
-        <section className="image-sec"></section>
-        <nav class="controller-nav"></nav>
+        <section className="image-sec">
+          {imageFigureArr}
+        </section>
+        <nav className="controller-nav"></nav>
       </section>
     );
   }
