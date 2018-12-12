@@ -7,11 +7,12 @@ import React from 'react';
 let data = require('../data/imagedata.json')
 
 // 取得圖片資料陣列
-let imageData = (function getImageDataArr(imageData){
+let imageDatas = (function getImageDataArr(imageData){
   for(let i=0; i < imageData.length; i++){
       let singleData = imageData[i];
-      imageData.imageURL = require('../images/' + singleData.filename)
-      imageData[i] = imageData;
+      singleData.imageURL = require('../images/' + singleData.filename)
+      // 把設定好的imageURL屬性加到原先的物件中
+      imageData[i] = singleData;
   }
   return imageData;
 })(data);
@@ -20,10 +21,10 @@ let imageData = (function getImageDataArr(imageData){
 var ImageFigure = React.createClass({
   render: function() {
     return (
-      <figure>
+      <figure className="img-figure">
         <img src={this.props.data.imageURL} alt={this.props.data.title}/>
         <figcaption>
-            <h2>
+            <h2 className="img-title">
               {this.props.data.title}
             </h2>
         </figcaption>
@@ -34,10 +35,9 @@ var ImageFigure = React.createClass({
 
 class AppComponent extends React.Component {
   render() {
-    let 
-        imageFigureArr = [];
+    let imageFigureArr = [];
 
-    imageData.forEach(function(value,key){
+      imageDatas.forEach(function(value,key){
         imageFigureArr.push(<ImageFigure key={key} data={value}></ImageFigure>)
       });
 
